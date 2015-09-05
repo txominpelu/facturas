@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+  <html ng-app="facturasApp">
+    <head>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/static/css/materialize.min.css"  media="screen,projection"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="/static/js/main.js"></script>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="/static/js/materialize.min.js"></script>
+
+      <nav>
+        <div class="nav-wrapper">
+	    <a href="#" class="brand-logo">{{month}}</a>
+        </div>
+      </nav>
+      <div class="container" ng-controller="FacturasController as facturas">
+  
+	 <div class="section" ng-repeat="entrada in facturas.entradas">
+	     <h4>{{entrada.empresa|angular}}</h4>
+         <table>
+           <thead>
+             <tr>
+                 <th>Numero</th>
+                 <th>Dia</th>
+                 <th>Base Imponible</th>
+                 <th>IVA</th>
+                 <th>IVA Soportado</th>
+                 <th>Total</th>
+             </tr>
+           </thead>
+
+           <tbody>
+             <tr ng-repeat="linea in entrada.entradas">
+	       <td>{{linea.numero|angular}}</td>
+	       <td>{{linea.dia|angular}}</td>
+	       <td>{{linea.base_imponible|angular}}</td>
+	       <td>{{linea.iva|angular}} %</td>
+               <td>0</td>
+               <td>0</td>
+             </tr>
+           </tbody>
+         </table>
+      </div>
+
+      <div class="section">
+         <h4>Nueva Factura</h4>
+	 <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s1">
+                  <input placeholder="Numero" id="numero" type="text" ng-model="facturas.nuevaEntrada.numero">
+		  <label for="numero">Numero</label>
+                </div>
+                <div class="input-field col s1">
+                  <input placeholder="Dia" id="dia" type="text" ng-model="facturas.nuevaEntrada.dia">
+		  <label for="dia">Dia</label>
+                </div>
+                <div class="input-field col s2">
+                  <input placeholder="Empresa" id="empresa" type="text" ng-model="facturas.nuevaEntrada.empresa">
+		  <label for="empresa">Empresa</label>
+                </div>
+                <div class="input-field col s2">
+                  <input placeholder="Base Imponible" id="base_imponible" type="text" ng-model="facturas.nuevaEntrada.base_imponible">
+		  <label for="base_imponible">Base Imponible</label>
+                </div>
+                <div class="input-field col s2">
+                  <input placeholder="IVA" id="iva" type="text" ng-keyup="$event.keyCode == 13 && facturas.addNewEntry()" ng-model="facturas.nuevaEntrada.iva">
+		  <label for="iva">IVA</label>
+                </div>
+                <div class="input-field col s2">
+                  <input placeholder="IVA Soportado" id="iva_soportado" type="text" class="validate" disabled>
+		  <label for="iva_soportado">IVA Soportado</label>
+                </div>
+                <div class="input-field col s2">
+                  <input placeholder="Total" id="total" type="text" class="validate" disabled>
+		  <label for="total">Total</label>
+                </div>
+              </div>
+            </form>
+          </div>
+       </div>
+       </div>
+       </body>
+  </html>
